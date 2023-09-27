@@ -34,5 +34,10 @@ class PermissionsTableSeeder extends Seeder
         Permission::generateFor('users');
 
         Permission::generateFor('settings');
+
+
+
+        Permission::generateFor('tournaments');
+        Permission::generateFor('tournaments_categories');
     }
 }
