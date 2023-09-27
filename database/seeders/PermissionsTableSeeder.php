@@ -12,12 +12,22 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
+
+
+        \DB::table('permissions')->delete();
+
+        Permission::firstOrCreate([
+            'key'        => 'browse_admin',
+            'table_name' => 'admin',
+        ]);
+
         $keys = [
-            'browse_admin',
+            // 'browse_admin',
             'browse_bread',
             'browse_database',
             'browse_media',
             'browse_compass',
+            'browse_clear-cache'
         ];
 
         foreach ($keys as $key) {
@@ -26,6 +36,10 @@ class PermissionsTableSeeder extends Seeder
                 'table_name' => null,
             ]);
         }
+
+
+    
+    
 
         Permission::generateFor('menus');
 
@@ -39,5 +53,6 @@ class PermissionsTableSeeder extends Seeder
 
         Permission::generateFor('tournaments');
         Permission::generateFor('tournaments_categories');
+        Permission::generateFor('dojos');
     }
 }

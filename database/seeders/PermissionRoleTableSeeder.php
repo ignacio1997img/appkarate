@@ -15,6 +15,8 @@ class PermissionRoleTableSeeder extends Seeder
      */
     public function run()
     {
+        \DB::table('permission_role')->delete();
+        
         $role = Role::where('name', 'admin')->firstOrFail();
 
         $permissions = Permission::all();
