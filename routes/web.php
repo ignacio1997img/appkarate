@@ -13,11 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 Route::get('/', function () {
-    return view('welcome');
-});
+    return redirect('admin/login');
+})->name('login');
 
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
+
+// Route::get('/admin/clear-cache', function() {
+//     Artisan::call('optimize:clear');
+//     return redirect('/admin')->with(['message' => 'Cache eliminada.', 'alert-type' => 'success']);
+// })->name('clear.cache');
