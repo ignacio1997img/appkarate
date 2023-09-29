@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TournamentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,16 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+
+    Route::get('tournaments', [TournamentController::class, 'index'])->name('voyager.tournaments.index');
+    Route::get('tournaments/ajax/list/{search?}', [TournamentController::class, 'list']);
+
+    Route::get('tournaments/{tournament}/referee', [TournamentController::class, 'indexReferee'])->name('tournaments.referee');//para abrir la vista de poder agregar dinero o aboinar mas dinero a la caja
+    Route::get('tournaments/referee/ajax/list/{tournament}/{search?}', [TournamentController::class, 'listArbitro']);
+    Route::post('tournaments/referee/store', [TournamentController::class, 'storeReferee']);
+
+
+
 });
 
 // Route::get('/admin/clear-cache', function() {
