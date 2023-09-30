@@ -109,6 +109,32 @@
             </div>
         </div>
     </form>
+
+
+    <form action="#" id="destroy_form" method="POST">
+        {{ method_field('DELETE') }}
+        {{ csrf_field() }}
+        <div class="modal modal-danger fade" data-backdrop="static" tabindex="-1" id="delete-modal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"><i class="voyager-trash"></i> Desea eliminar el siguiente registro?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="text-center">
+                            <i class="voyager-trash" style="color: red; font-size: 5em;"></i>
+                            <p><b>Desea eliminar el siguiente registro?</b></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-danger pull-right delete-confirm" value="Sí, eliminar">                        
+                        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 @stop
 
 @section('css')
@@ -153,6 +179,13 @@
                     $('#div-results').loading('toggle');
                 }
             });
+        }
+
+
+
+        // ############################################################
+        function destroyItem(url){
+            $('#destroy_form').attr('action', url);
         }
 
 

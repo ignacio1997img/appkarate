@@ -35,7 +35,7 @@
                     </td>
                     <td class="no-sort no-click bread-actions text-right">
                         {{-- @if (auth()->user()->hasPermission('delete_tournaments')) --}}
-                            <button title="Borrar" class="btn btn-sm btn-danger delete" onclick="deleteItem('{{ route('voyager.tournaments.destroy', ['id' => $item->id]) }}')" data-toggle="modal" data-target="#delete-modal">
+                            <button title="Borrar" class="btn btn-sm btn-danger delete" onclick="destroyItem('{{ route('tournaments-referee.destroy', ['referee' => $item->id]) }}')" data-toggle="modal" data-target="#delete-modal">
                                 <i class="voyager-trash"></i> <span class="hidden-xs hidden-sm">Borrar</span>
                             </button>
                         {{-- @endif --}}

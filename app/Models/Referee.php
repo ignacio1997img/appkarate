@@ -12,5 +12,5 @@ class Referee extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['ci', 'first_name', 'last_name', 'age', 'description', 'tournament_id'];
+    protected $fillable = ['ci', 'first_name', 'last_name', 'age', 'description', 'tournament_id', 'deleted_at'];
 }

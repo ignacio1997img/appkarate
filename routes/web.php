@@ -32,6 +32,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('tournaments/{tournament}/referee', [TournamentController::class, 'indexReferee'])->name('tournaments.referee');//para abrir la vista de poder agregar dinero o aboinar mas dinero a la caja
     Route::get('tournaments/referee/ajax/list/{tournament}/{search?}', [TournamentController::class, 'listArbitro']);
     Route::post('tournaments/referee/store', [TournamentController::class, 'storeReferee']);
+    Route::delete('tournaments/referee/{referee?}/destroy', [TournamentController::class, 'destroyReferee'])->name('tournaments-referee.destroy'); //para la destruccion de prestamo con caja cerrada
+
 
 
 

@@ -74,4 +74,26 @@ class TournamentController extends Controller
 
         }
     }
+
+
+    public function destroyReferee($referee)
+    {
+        DB::beginTransaction();
+        try {
+            // return $referee;
+            $referee = Referee::where('id', $referee)->first();
+
+            $referee->update([
+                'deleted_at'=>Carbon::now()
+            ]);
+
+            DB::commit();
+            return redirect()->route('tournaments.referee', ['tournament' => $referee->tournament_id])->with(['message' => 'Eliminado exitosamente.', 'alert-type' => 'success']);
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->route('tournaments.referee', ['tournament' => $referee->tournament_id])->with(['message' => 'Ocurrió un error.', 'alert-type' => 'error']);
+
+        }
+    }
 }
