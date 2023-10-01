@@ -45,7 +45,10 @@
                             <i class="voyager-success"></i> <span class="hidden-xs hidden-sm">Finalzar Campeonato</span>
                         </a>
                         <a href="{{ route('tournaments.referee', ['tournament' => $item->id]) }}" title="Editar" class="btn btn-sm btn-dark view">
-                            <i class="voyager-edit"></i> <span class="hidden-xs hidden-sm">Arbitro</span>
+                            <i class="fa-solid fa-person"></i> <span class="hidden-xs hidden-sm">Arbitros</span>
+                        </a>
+                        <a href="{{ route('tournaments.type', ['tournament' => $item->id]) }}" title="Editar" class="btn btn-sm btn-dark view">
+                            <i class="fa-solid fa-bars"></i> <span class="hidden-xs hidden-sm">Tipos</span>
                         </a>
                         @if (auth()->user()->hasPermission('read_tournaments'))
                             <a href="{{ route('voyager.tournaments.show', ['id' => $item->id]) }}" title="Ver" class="btn btn-sm btn-warning view">

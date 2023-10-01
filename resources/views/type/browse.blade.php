@@ -1,6 +1,6 @@
 @extends('voyager::master')
 
-@section('page_title', 'Viendo Arbitros')
+@section('page_title', 'Viendo Tipos de Torneos')
 
 @section('page_header')
     <div class="container-fluid">
@@ -10,7 +10,7 @@
                     <div class="panel-body" style="padding: 0px">
                         <div class="col-md-8" style="padding: 0px">
                             <h1 id="titleHead" class="page-title">
-                                <i class="fa-solid fa-person"></i> Arbitros
+                                <i class="fa-solid fa-bars"></i> Typos de Torneos
                             </h1>
                             <a href="{{ route('voyager.tournaments.index') }}" class="btn btn-warning">
                                 <i class="fa-solid fa-rotate-left"></i> <span>Volver</span>
@@ -57,7 +57,7 @@
     </div>
 
 
-    <form action="{{ url('admin/tournaments/referee/store') }}" id="form-create-customer" method="POST">
+    <form action="{{ url('admin/tournaments/type/store') }}" id="form-create-customer" method="POST">
         <div class="modal fade" tabindex="-1" id="modal-create-customer" role="dialog">
             <div class="modal-dialog modal-primary">
                 <div class="modal-content">
@@ -69,27 +69,15 @@
                         @csrf
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label>CI</label>
-                                <input type="text" id="ci" name="ci" class="form-control" placeholder="CI" required>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label>Edad</label>
-                                    <input type="number" name="age" id="age" class="form-control" placeholder="edad" required>
-                                </div>
+                                <label>Tipos de Torneos</label>
+                                <select name="type_id" id="type_id" class="form-control select2" required>
+                                    <option value="" selected disabled>--Selecione una opción--</option>
+                                    @foreach ($type as $item)
+                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             
-                        </div>
-                        
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label>Nombres</label>
-                                <input type="text" name="first_name" id="first_name" class="form-control" placeholder="Nombres" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Apellidos</label>
-                                <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Apellidos" required>
-                            </div>
                         </div>
 
 
@@ -100,7 +88,7 @@
                                 <textarea name="description" id="description" class="form-control" rows="2" placeholder="Observación"></textarea>
                             </div>
                         </div>
-                        <input type="hidden" name="tournament_id" value="{{$referee->id}}">
+                        <input type="hidden" name="tournament_id" value="{{$tournament->id}}">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -147,7 +135,7 @@
     <script>
         var countPage = 10, order = 'id', typeOrder = 'desc';
 
-        var tournament = {{$referee->id}}
+        var tournament = {{$tournament->id}}
         $(document).ready(() => {
             list();
 
@@ -168,7 +156,7 @@
 
         function list(page = 1){
             $('#div-results').loading({message: 'Cargando....'});
-            let url = '{{ url("admin/tournaments/referee/ajax/list") }}/'+tournament;
+            let url = '{{ url("admin/tournaments/type/ajax/list") }}/'+tournament;
 
             let search = $('#input-search').val() ? $('#input-search').val() : '';
             

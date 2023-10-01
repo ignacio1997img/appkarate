@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Referee;
 use App\Models\Tournament;
+use App\Models\TournamentsCategory;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
@@ -29,6 +31,7 @@ class TournamentController extends Controller
         return view('tournament.list', compact('data'));
     }
 
+    // ######################################################################################################################
 
     public function indexReferee($tournament)
     {
@@ -96,4 +99,65 @@ class TournamentController extends Controller
 
         }
     }
+
+    // ######################################################################################################################
+
+    public function indexType($tournament)
+    {
+        $tournament = Tournament::where('id', $tournament)->where('deleted_at', null)->first();
+
+        $type = TournamentsCategory::where('deleted_at', null)->get();
+        // return $referee;
+        return view('type.browse', compact('tournament', 'type'));
+    }
+
+    public function listType($tournament, $search = null){
+        // dump(1);
+        $paginate = request('paginate') ?? 10;
+        $data = Type::with(['type', 'tournament'])
+            ->where(function($query) use ($search){
+                if($search){
+                    $query->OrwhereHas('type', function($query) use($search){
+                        $query->whereRaw("(name like '%$search%')");
+                    })
+                    ->OrWhereRaw($search ? "description like '%$search%'" : 1);
+                }
+            })
+            ->where('tournament_id', $tournament)->where('deleted_at', NULL)->orderBy('id', 'DESC')->paginate($paginate);
+        // dump($data);
+        return view('type.list', compact('data'));
+    }
+
+
+    public function storeType(Request $request)
+    {
+
+        DB::beginTransaction();
+        try {
+
+            $ok = Type::where('tournament_id', $request->tournament_id)->where('type_id', $request->type_id)->where('deleted_at', null)->first();
+
+            if($ok)
+            {
+                return redirect()->route('tournaments.type', ['tournament' => $request->tournament_id])->with(['message' => 'Ocurrió un error.', 'alert-type' => 'error']);
+            }
+            
+            // return $referee;
+            $data = Type::create($request->all());
+            // return $data;
+            DB::commit();
+            return redirect()->route('tournaments.type', ['tournament' => $request->tournament_id])->with(['message' => 'Registrado exitosamente.', 'alert-type' => 'success']);
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->route('tournaments.type', ['tournament' => $request->tournament_id])->with(['message' => 'Ocurrió un error.', 'alert-type' => 'error']);
+
+        }
+    }
+
+
+
+
+
+
 }
