@@ -1,6 +1,6 @@
 @extends('voyager::master')
 
-@section('page_title', 'Viendo Tipos de Torneos')
+@section('page_title', 'Viendo Competidores')
 
 @section('page_header')
     <div class="container-fluid">
@@ -10,9 +10,9 @@
                     <div class="panel-body" style="padding: 0px">
                         <div class="col-md-8" style="padding: 0px">
                             <h1 id="titleHead" class="page-title">
-                                <i class="fa-solid fa-list"></i> Categorias
+                                <i class="fa-solid fa-people-roof"></i> Competidores
                             </h1>
-                            <a href="{{ route('voyager.tournaments.index') }}" class="btn btn-warning">
+                            <a href="{{ route('tournaments.type', ['tournament'=>$type->tournament_id]) }}" class="btn btn-warning">
                                 <i class="fa-solid fa-rotate-left"></i> <span>Volver</span>
                             </a>
                         </div>
@@ -57,38 +57,60 @@
     </div>
 
 
-    <form action="{{ url('admin/tournaments/type/store') }}" id="form-create-customer" method="POST">
+    <form action="{{ url('admin/tournaments/type/competitor/store') }}" id="form-create-customer" method="POST">
         <div class="modal fade" tabindex="-1" id="modal-create-customer" role="dialog">
             <div class="modal-dialog modal-primary">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title"><i class="fa-solid fa-person"></i> Registrar Arbitro</h4>
+                        <h4 class="modal-title"><i class="fa-solid fa-people-roof"></i> Registrar Competidores</h4>
                     </div>
                     <div class="modal-body">
                         @csrf
                         <div class="row">
+
+                            <input type="hidden" name="type_id" value="{{$type->id}}">
+                            <input type="hidden" name="tournament_id" value="{{$type->tournament_id}}">
                             <div class="form-group col-md-6">
-                                <label>Tipos de Torneos</label>
-                                <select name="type_id" id="type_id" class="form-control select2" required>
-                                    <option value="" selected disabled>--Selecione una opción--</option>
-                                    @foreach ($type as $item)
+                                <label>Dojo</label>
+                                <select name="dojo_id" id="dojo_id" class="form-control select2" required>
+                                    <option value="" disabled selected>--Seleccione una opción--</option>
+                                    @foreach ($dojo as $item)
                                         <option value="{{$item->id}}">{{$item->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
+
+
+                            <div class="form-group col-md-6">
+                                <label>CI</label>
+                                <input type="text" id="ci" name="ci" class="form-control" placeholder="CI" required>
+                            </div>
                             
                         </div>
-
-
                         
                         <div class="row">
-                            <div class="form-group col-md-12">
-                                <label>Observación/Descripción</label>
-                                <textarea name="description" id="description" class="form-control" rows="2" placeholder="Observación"></textarea>
+                            <div class="form-group col-md-6">
+                                <label>Nombres</label>
+                                <input type="text" name="first_name" id="first_name" class="form-control" placeholder="Nombre." required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Apellidos</label>
+                                <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Apellido paterno" required>
                             </div>
                         </div>
-                        <input type="hidden" name="tournament_id" value="{{$tournament->id}}">
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label>Edad</label>
+                                <input type="number" name="age" id="age" class="form-control" placeholder="15" min="1" step="1" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Peso</label>
+                                <input type="number" name="weight" id="weight" class="form-control" placeholder="50.00" min="1" step="0.1" required>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -135,7 +157,7 @@
     <script>
         var countPage = 10, order = 'id', typeOrder = 'desc';
 
-        var tournament = {{$tournament->id}}
+        var type = {{$type->id}}
         $(document).ready(() => {
             list();
 
@@ -156,7 +178,7 @@
 
         function list(page = 1){
             $('#div-results').loading({message: 'Cargando....'});
-            let url = '{{ url("admin/tournaments/type/ajax/list") }}/'+tournament;
+            let url = '{{ url("admin/tournaments/type/competitor/ajax/list") }}/'+type;
 
             let search = $('#input-search').val() ? $('#input-search').val() : '';
             

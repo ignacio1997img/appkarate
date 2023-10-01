@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dojo;
+use App\Models\People;
 use App\Models\Referee;
 use App\Models\Tournament;
 use App\Models\TournamentsCategory;
@@ -139,7 +141,7 @@ class TournamentController extends Controller
 
             if($ok)
             {
-                return redirect()->route('tournaments.type', ['tournament' => $request->tournament_id])->with(['message' => 'Ocurrió un error.', 'alert-type' => 'error']);
+                return redirect()->route('tournaments.type', ['tournament' => $request->tournament_id])->with(['message' => 'El tipo ya se encuentra registrado..', 'alert-type' => 'error']);
             }
             
             // return $referee;
@@ -155,7 +157,101 @@ class TournamentController extends Controller
         }
     }
 
+    public function destroyType($type)
+    {
+        DB::beginTransaction();
+        try {
+            // return $type;
+            $type = Type::where('id', $type)->first();
 
+            $type->update([
+                'deleted_at'=>Carbon::now()
+            ]);
+
+            DB::commit();
+            return redirect()->route('tournaments.type', ['tournament' => $type->tournament_id])->with(['message' => 'Eliminado exitosamente.', 'alert-type' => 'success']);
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->route('tournaments.type', ['tournament' => $type->tournament_id])->with(['message' => 'Ocurrió un error.', 'alert-type' => 'error']);
+
+        }
+    }
+
+    // #################################################################################3
+
+
+    public function indexCompetitor($tournament, $type)
+    {
+        // return $tournament;
+
+        $type = Type::where('id', $type)->where('tournament_id', $tournament)->where('deleted_at', null)->first();
+
+        $dojo = Dojo::where('deleted_at', null)->get();
+        // return $type;
+        return view('competitor.browse', compact('type', 'dojo'));
+    }
+
+    public function listCompetitor($type, $search = null){
+        // dump(1);
+        $paginate = request('paginate') ?? 10;
+        $data = People::with(['type', 'dojo'])
+            ->where(function($query) use ($search){
+                if($search){
+                    $query->OrwhereHas('dojo', function($query) use($search){
+                        $query->whereRaw("(name like '%$search%')");
+                    })
+                    ->OrWhereRaw($search ? "ci like '%$search%'" : 1)
+                    ->OrWhereRaw($search ? "weight like '%$search%'" : 1)
+                    ->OrWhereRaw($search ? "first_name like '%$search%'" : 1)
+                    ->OrWhereRaw($search ? "last_name like '%$search%'" : 1)
+                    ->OrWhereRaw($search ? "CONCAT(first_name, ' ', last_name) like '%$search%'" : 1)
+                    
+                    ->OrWhereRaw($search ? "age like '%$search%'" : 1);
+                }
+            })
+            ->where('type_id', $type)->where('deleted_at', NULL)->orderBy('id', 'DESC')->paginate($paginate);
+        // dump($data);
+        return view('competitor.list', compact('data'));
+    }
+
+    
+
+    public function storeCompetitor(Request $request)
+    {
+        DB::beginTransaction();
+        try {            
+            $data = People::create($request->all());
+            DB::commit();
+            return redirect()->route('tournaments-type.competitor', ['tournament' => $request->tournament_id, 'type'=>$request->type_id])->with(['message' => 'Registrado exitosamente.', 'alert-type' => 'success']);
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->route('tournaments-type.competitor', ['tournament' => $request->tournament_id, 'type'=>$request->type_id])->with(['message' => 'Ocurrió un error.', 'alert-type' => 'error']);
+
+        }
+    }
+
+    public function destroyCompetitor($type)
+    {
+        DB::beginTransaction();
+        try {
+            // return $type;
+            $type = Type::where('id', $type)->first();
+
+            $type->update([
+                'deleted_at'=>Carbon::now()
+            ]);
+
+            DB::commit();
+            return redirect()->route('tournaments-type.competitor', ['tournament' => $request->tournament_id, 'type'=>$request->type_id])->with(['message' => 'Eliminado exitosamente.', 'alert-type' => 'success']);
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->route('tournaments-type.competitor', ['tournament' => $request->tournament_id, 'type'=>$request->type_id])->with(['message' => 'Ocurrió un error.', 'alert-type' => 'error']);
+
+        }
+    }
 
 
 

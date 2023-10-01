@@ -54,5 +54,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::generateFor('tournaments');
         Permission::generateFor('tournaments_categories');
         Permission::generateFor('dojos');
+        Permission::generateFor('people');
+
     }
 }

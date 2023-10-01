@@ -29,15 +29,22 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('tournaments', [TournamentController::class, 'index'])->name('voyager.tournaments.index');
     Route::get('tournaments/ajax/list/{search?}', [TournamentController::class, 'list']);
 
-    Route::get('tournaments/{tournament}/referee', [TournamentController::class, 'indexReferee'])->name('tournaments.referee');//para abrir la vista de poder agregar dinero o aboinar mas dinero a la caja
+    Route::get('tournaments/{tournament}/referee', [TournamentController::class, 'indexReferee'])->name('tournaments.referee');
     Route::get('tournaments/referee/ajax/list/{tournament}/{search?}', [TournamentController::class, 'listArbitro']);
     Route::post('tournaments/referee/store', [TournamentController::class, 'storeReferee']);
-    Route::delete('tournaments/referee/{referee?}/destroy', [TournamentController::class, 'destroyReferee'])->name('tournaments-referee.destroy'); //para la destruccion de prestamo con caja cerrada
+    Route::delete('tournaments/referee/{referee?}/destroy', [TournamentController::class, 'destroyReferee'])->name('tournaments-referee.destroy'); 
 
 
-    Route::get('tournaments/{tournament}/type', [TournamentController::class, 'indexType'])->name('tournaments.type');//para abrir la vista de poder agregar dinero o aboinar mas dinero a la caja
+    Route::get('tournaments/{tournament}/type', [TournamentController::class, 'indexType'])->name('tournaments.type');
     Route::get('tournaments/type/ajax/list/{tournament}/{search?}', [TournamentController::class, 'listType']);
     Route::post('tournaments/type/store', [TournamentController::class, 'storeType']);
+    Route::delete('tournaments/type/{type?}/destroy', [TournamentController::class, 'destroyType'])->name('tournaments-type.destroy'); 
+
+    Route::get('tournaments/{tournament}/type/{type}/competitor', [TournamentController::class, 'indexCompetitor'])->name('tournaments-type.competitor');
+    Route::get('tournaments/type/competitor/ajax/list/{type}/{search?}', [TournamentController::class, 'listCompetitor']);
+    Route::post('tournaments/type/competitor/store', [TournamentController::class, 'storeCompetitor']);
+    Route::delete('tournaments/type/competitor/{competitor?}/destroy', [TournamentController::class, 'destroyType'])->name('tournaments-type.destroy'); 
+
 
 
 

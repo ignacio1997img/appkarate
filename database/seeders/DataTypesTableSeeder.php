@@ -89,15 +89,15 @@ class DataTypesTableSeeder extends Seeder
                 'server_side' => 0,
                 'details' => '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null,"scope":null}',
                 'created_at' => '2023-09-27 17:06:40',
-                'updated_at' => '2023-09-27 19:14:32',
+                'updated_at' => '2023-09-28 13:41:45',
             ),
             4 => 
             array (
                 'id' => 5,
                 'name' => 'tournaments_categories',
                 'slug' => 'tournaments-categories',
-                'display_name_singular' => 'Categoría de Torneo',
-                'display_name_plural' => 'Categorías de Torneos',
+                'display_name_singular' => 'Tipo de Torneo',
+                'display_name_plural' => 'Tipos de Torneos',
                 'icon' => 'voyager-categories',
                 'model_name' => 'App\\Models\\TournamentsCategory',
                 'policy_name' => NULL,
@@ -105,9 +105,9 @@ class DataTypesTableSeeder extends Seeder
                 'description' => NULL,
                 'generate_permissions' => 1,
                 'server_side' => 0,
-                'details' => '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null}',
+                'details' => '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null,"scope":null}',
                 'created_at' => '2023-09-27 19:33:22',
-                'updated_at' => '2023-09-27 19:33:22',
+                'updated_at' => '2023-09-30 03:13:07',
             ),
             5 => 
             array (
@@ -126,6 +126,24 @@ class DataTypesTableSeeder extends Seeder
                 'details' => '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null,"scope":null}',
                 'created_at' => '2023-09-27 21:31:25',
                 'updated_at' => '2023-09-27 21:33:05',
+            ),
+            6 => 
+            array (
+                'id' => 11,
+                'name' => 'referees',
+                'slug' => 'referees',
+                'display_name_singular' => 'Arbitro',
+                'display_name_plural' => 'Arbitros',
+                'icon' => 'voyager-alarm-clock',
+                'model_name' => 'App\\Models\\Referee',
+                'policy_name' => NULL,
+                'controller' => NULL,
+                'description' => NULL,
+                'generate_permissions' => 1,
+                'server_side' => 0,
+                'details' => '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null,"scope":null}',
+                'created_at' => '2023-09-27 21:51:55',
+                'updated_at' => '2023-09-27 21:53:50',
             ),
         ));
         
