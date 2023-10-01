@@ -90,7 +90,7 @@ class SettingsTableSeeder extends Seeder
                 'id' => 7,
                 'key' => 'admin.description',
                 'display_name' => 'Descripción del administrador',
-                'value' => 'Sistema de tablero de puntuación',
+                'value' => 'Karate Scoreboard',
                 'details' => '',
                 'type' => 'text',
                 'order' => 2,
