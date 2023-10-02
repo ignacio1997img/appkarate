@@ -263,9 +263,10 @@ class TournamentController extends Controller
 
             $people->update([
                 'dojo_id'=>$request->dojo_id,
-                ''
-            ])
-            $data = People::create($request->all());
+                'last_name'=>$request->last_name,
+                'first_name'=>$request->first_name,
+            ]);
+            // $data = People::create($request->all());
 
             DB::commit();
             return redirect()->route('tournaments-type.competitor', ['tournament' => $request->tournament_id, 'type'=>$request->type_id])->with(['message' => 'Registrado exitosamente.', 'alert-type' => 'success']);
