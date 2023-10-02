@@ -110,6 +110,16 @@
                                 <input type="number" name="weight" id="weight" class="form-control" placeholder="50.00" min="1" step="0.1" required>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label>Género</label>
+                                <select name="gender" id="gender" class="form-control select2" required>
+                                    <option value="" disabled selected>--Seleccione una opción--</option>
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="Femenino">Femenino</option>
+                                </select>
+                            </div>                            
+                        </div>
 
                     </div>
                     <div class="modal-footer">
@@ -175,6 +185,16 @@
                                 <input type="number" name="weight" id="weight" class="form-control" placeholder="50.00" min="1" step="0.1" required>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label>Género</label>
+                                <select name="gender" id="genders" class="form-control select2" required>
+                                    <option value="" disabled selected>--Seleccione una opción--</option>
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="Femenino">Femenino</option>
+                                </select>
+                            </div>                            
+                        </div>
 
                     </div>
                     <div class="modal-footer">
@@ -203,6 +223,8 @@
                             <p><b>Desea eliminar el siguiente registro?</b></p>
                         </div>
                     </div>
+                    <input type="hidden" name="type_id" value="{{$type->id}}">
+                            <input type="hidden" name="tournament_id" value="{{$type->tournament_id}}">
                     <div class="modal-footer">
                         <input type="submit" class="btn btn-danger pull-right delete-confirm" value="Sí, eliminar">                        
                         <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancelar</button>
@@ -266,6 +288,7 @@
                 var modal = $(this)
                 modal.find('.modal-body #id').val(item.id)
                 modal.find('.modal-body #dojos_id').val(item.dojo_id).trigger('change')
+                modal.find('.modal-body #genders').val(item.gender).trigger('change')
                 
                 modal.find('.modal-body #ci').val(item.ci)
                 modal.find('.modal-body #first_name').val(item.first_name)

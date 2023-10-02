@@ -134,7 +134,7 @@ class DataTypesTableSeeder extends Seeder
                 'slug' => 'referees',
                 'display_name_singular' => 'Arbitro',
                 'display_name_plural' => 'Arbitros',
-                'icon' => 'voyager-alarm-clock',
+                'icon' => 'fa-solid fa-person',
                 'model_name' => 'App\\Models\\Referee',
                 'policy_name' => NULL,
                 'controller' => NULL,
@@ -143,7 +143,7 @@ class DataTypesTableSeeder extends Seeder
                 'server_side' => 0,
                 'details' => '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null,"scope":null}',
                 'created_at' => '2023-09-27 21:51:55',
-                'updated_at' => '2023-09-27 21:53:50',
+                'updated_at' => '2023-10-02 20:14:23',
             ),
         ));
         

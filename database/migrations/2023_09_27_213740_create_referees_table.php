@@ -19,7 +19,7 @@ class CreateRefereesTable extends Migration
             $table->string('ci')->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
-            $table->integer('age')->nullable();
+            $table->string('age')->nullable();
             $table->string('description')->nullable();
             $table->smallInteger('status')->default('1');
             $table->timestamps();

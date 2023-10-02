@@ -9,7 +9,7 @@ class People extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['dojo_id', 'type_id', 'ci', 'first_name', 'last_name', 'age', 'weight', 'description', 'status', 'deleted_at'];
+    protected $fillable = ['dojo_id', 'gender', 'type_id', 'ci', 'first_name', 'last_name', 'age', 'weight', 'description', 'status', 'deleted_at'];
 
     public function dojo()
     {

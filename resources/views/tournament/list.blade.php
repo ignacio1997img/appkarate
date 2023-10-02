@@ -44,9 +44,9 @@
                         <a href="{{ route('tournaments.referee', ['tournament' => $item->id]) }}" title="Editar" class="btn btn-sm btn-success view">
                             <i class="voyager-success"></i> <span class="hidden-xs hidden-sm">Finalzar Campeonato</span>
                         </a>
-                        <a href="{{ route('tournaments.referee', ['tournament' => $item->id]) }}" title="Editar" class="btn btn-sm btn-dark view">
+                        {{-- <a href="{{ route('tournaments.referee', ['tournament' => $item->id]) }}" title="Editar" class="btn btn-sm btn-dark view">
                             <i class="fa-solid fa-person"></i> <span class="hidden-xs hidden-sm">Arbitros</span>
-                        </a>
+                        </a> --}}
                         <a href="{{ route('tournaments.type', ['tournament' => $item->id]) }}" title="Editar" class="btn btn-sm btn-dark view">
                             <i class="fa-solid fa-list"></i> <span class="hidden-xs hidden-sm">Categorias</span>
                         </a>

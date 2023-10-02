@@ -35,16 +35,16 @@ Route::group(['prefix' => 'admin'], function () {
     Route::delete('tournaments/referee/{referee?}/destroy', [TournamentController::class, 'destroyReferee'])->name('tournaments-referee.destroy'); 
 
 
-    Route::get('tournaments/{tournament}/type', [TournamentController::class, 'indexType'])->name('tournaments.type');
-    Route::get('tournaments/type/ajax/list/{tournament}/{search?}', [TournamentController::class, 'listType']);
-    Route::post('tournaments/type/store', [TournamentController::class, 'storeType']);
-    Route::delete('tournaments/type/{type?}/destroy', [TournamentController::class, 'destroyType'])->name('tournaments-type.destroy'); 
+    Route::get('type', [TournamentController::class, 'indexType'])->name('tournaments.type');
+    Route::get('type/ajax/list/{search?}', [TournamentController::class, 'listType']);
+    Route::post('type/store', [TournamentController::class, 'storeType']);
+    Route::delete('type/{type?}/destroy', [TournamentController::class, 'destroyType'])->name('type.destroy'); 
 
     Route::get('tournaments/{tournament}/type/{type}/competitor', [TournamentController::class, 'indexCompetitor'])->name('tournaments-type.competitor');
     Route::get('tournaments/type/competitor/ajax/list/{type}/{search?}', [TournamentController::class, 'listCompetitor']);
     Route::post('tournaments/type/competitor/store', [TournamentController::class, 'storeCompetitor']);
     Route::post('tournaments/type/competitor/update', [TournamentController::class, 'updateCompetitor']);
-    Route::delete('tournaments/type/competitor/{competitor?}/destroy', [TournamentController::class, 'destroyType'])->name('tournaments-type.destroy'); 
+    Route::delete('tournaments/type/competitor/{competitor?}/destroy', [TournamentController::class, 'destroyCompetitor'])->name('tournaments-competitor.destroy'); 
 
 
 

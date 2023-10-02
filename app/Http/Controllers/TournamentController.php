@@ -104,16 +104,19 @@ class TournamentController extends Controller
 
     // ######################################################################################################################
 
-    public function indexType($tournament)
+    public function indexType()
     {
-        $tournament = Tournament::where('id', $tournament)->where('deleted_at', null)->first();
+        // return 1;
+        $tournament = Tournament::where('deleted_at', null)->where('status', 1)->get();
+        // return $tournament;
 
+        
         $type = TournamentsCategory::where('deleted_at', null)->get();
         // return $referee;
         return view('type.browse', compact('tournament', 'type'));
     }
 
-    public function listType($tournament, $search = null){
+    public function listType($search = null){
         // dump(1);
         $paginate = request('paginate') ?? 10;
         $data = Type::with(['type', 'tournament'])
@@ -125,7 +128,7 @@ class TournamentController extends Controller
                     ->OrWhereRaw($search ? "description like '%$search%'" : 1);
                 }
             })
-            ->where('tournament_id', $tournament)->where('deleted_at', NULL)->orderBy('id', 'DESC')->paginate($paginate);
+            ->where('deleted_at', NULL)->orderBy('id', 'DESC')->paginate($paginate);
         // dump($data);
         return view('type.list', compact('data'));
     }
@@ -144,15 +147,15 @@ class TournamentController extends Controller
             //     return redirect()->route('tournaments.type', ['tournament' => $request->tournament_id])->with(['message' => 'El tipo ya se encuentra registrado..', 'alert-type' => 'error']);
             // }
             
-            // return $referee;
+            // return $request;
             $data = Type::create($request->all());
             // return $data;
             DB::commit();
-            return redirect()->route('tournaments.type', ['tournament' => $request->tournament_id])->with(['message' => 'Registrado exitosamente.', 'alert-type' => 'success']);
+            return redirect()->route('tournaments.type')->with(['message' => 'Registrado exitosamente.', 'alert-type' => 'success']);
 
         } catch (\Throwable $th) {
             DB::rollBack();
-            return redirect()->route('tournaments.type', ['tournament' => $request->tournament_id])->with(['message' => 'Ocurrió un error.', 'alert-type' => 'error']);
+            return redirect()->route('tournaments.type')->with(['message' => 'Ocurrió un error.', 'alert-type' => 'error']);
 
         }
     }
@@ -232,12 +235,13 @@ class TournamentController extends Controller
         }
     }
 
-    public function destroyCompetitor($type)
+    public function destroyCompetitor(Request $request, $competitor)
     {
+        // return $request;
         DB::beginTransaction();
         try {
             // return $type;
-            $type = Type::where('id', $type)->first();
+            $type = People::where('id', $competitor)->first();
 
             $type->update([
                 'deleted_at'=>Carbon::now()
@@ -255,7 +259,7 @@ class TournamentController extends Controller
 
     public function updateCompetitor(Request $request)
     {
-        return $request;
+        // return $request;
         DB::beginTransaction();
         try {            
 
@@ -265,6 +269,11 @@ class TournamentController extends Controller
                 'dojo_id'=>$request->dojo_id,
                 'last_name'=>$request->last_name,
                 'first_name'=>$request->first_name,
+                'ci'=>$request->ci,
+                'gender'=>$request->gender,
+                'age'=>$request->age,
+                'weight'=>$request->weight,
+
             ]);
             // $data = People::create($request->all());
 

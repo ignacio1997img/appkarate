@@ -57,7 +57,7 @@
     </div>
 
 
-    <form action="{{ url('admin/tournaments/type/store') }}" id="form-create-customer" method="POST">
+    <form action="{{ url('admin/type/store') }}" id="form-create-customer" method="POST">
         <div class="modal fade" tabindex="-1" id="modal-create-customer" role="dialog">
             <div class="modal-dialog modal-primary">
                 <div class="modal-content">
@@ -68,6 +68,15 @@
                     <div class="modal-body">
                         @csrf
                         <div class="row">
+                            <div class="form-group col-md-6">
+                                <label>Torneos Habilitados</label>
+                                <select name="tournament_id" id="tournament_id" class="form-control select2" required>
+                                    <option value="" selected disabled>--Selecione una opción--</option>
+                                    @foreach ($tournament as $item)
+                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="form-group col-md-6">
                                 <label>Tipos de Torneos</label>
                                 <select name="type_id" id="type_id" class="form-control select2" required>
@@ -84,11 +93,10 @@
                         
                         <div class="row">
                             <div class="form-group col-md-12">
-                                <label>Observación/Descripción</label>
-                                <textarea name="description" id="description" class="form-control" rows="2" placeholder="Observación"></textarea>
+                                <label>Categoría</label>
+                                <textarea name="description" id="description" class="form-control" rows="2" placeholder="Observación" required></textarea>
                             </div>
                         </div>
-                        <input type="hidden" name="tournament_id" value="{{$tournament->id}}">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -135,7 +143,7 @@
     <script>
         var countPage = 10, order = 'id', typeOrder = 'desc';
 
-        var tournament = {{$tournament->id}}
+      
         $(document).ready(() => {
             list();
 
@@ -156,7 +164,7 @@
 
         function list(page = 1){
             $('#div-results').loading({message: 'Cargando....'});
-            let url = '{{ url("admin/tournaments/type/ajax/list") }}/'+tournament;
+            let url = '{{ url("admin/type/ajax/list") }}/';
 
             let search = $('#input-search').val() ? $('#input-search').val() : '';
             

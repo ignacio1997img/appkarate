@@ -753,7 +753,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{}',
-                'order' => 2,
+                'order' => 3,
             ),
             46 => 
             array (
@@ -769,7 +769,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 0,
                 'details' => '{"validation":{"rule":"required|max:191"},"display":{"width":4}}',
-                'order' => 3,
+                'order' => 4,
             ),
             47 => 
             array (
@@ -785,7 +785,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 0,
                 'details' => '{"validation":{"rule":"required|max:191"},"display":{"width":4}}',
-                'order' => 4,
+                'order' => 5,
             ),
             48 => 
             array (
@@ -801,7 +801,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 0,
                 'details' => '{"validation":{"rule":"required|max:191"},"display":{"width":4}}',
-                'order' => 5,
+                'order' => 6,
             ),
             49 => 
             array (
@@ -809,7 +809,7 @@ class DataRowsTableSeeder extends Seeder
                 'data_type_id' => 11,
                 'field' => 'age',
                 'type' => 'text',
-                'display_name' => 'Edad',
+                'display_name' => 'Grado',
                 'required' => 0,
                 'browse' => 1,
                 'read' => 1,
@@ -817,7 +817,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 0,
                 'details' => '{"validation":{"rule":"max:191"},"display":{"width":4}}',
-                'order' => 6,
+                'order' => 7,
             ),
             50 => 
             array (
@@ -833,7 +833,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 0,
                 'delete' => 0,
                 'details' => '{"validation":{"rule":"max:191"},"display":{"width":12}}',
-                'order' => 7,
+                'order' => 8,
             ),
             51 => 
             array (
@@ -849,7 +849,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 0,
                 'delete' => 0,
                 'details' => '{"on":"Activo","off":"Inactivo","checked":true}',
-                'order' => 8,
+                'order' => 9,
             ),
             52 => 
             array (
@@ -865,7 +865,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 0,
                 'delete' => 0,
                 'details' => '{}',
-                'order' => 9,
+                'order' => 10,
             ),
             53 => 
             array (
@@ -881,7 +881,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 0,
                 'delete' => 0,
                 'details' => '{}',
-                'order' => 10,
+                'order' => 11,
             ),
             54 => 
             array (
@@ -897,7 +897,23 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 0,
                 'delete' => 0,
                 'details' => '{}',
-                'order' => 11,
+                'order' => 12,
+            ),
+            55 => 
+            array (
+                'id' => 64,
+                'data_type_id' => 11,
+                'field' => 'referee_belongsto_tournament_relationship',
+                'type' => 'relationship',
+                'display_name' => 'Torneos',
+                'required' => 1,
+                'browse' => 1,
+                'read' => 1,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 0,
+                'details' => '{"model":"App\\\\Models\\\\Tournament","table":"tournaments","type":"belongsTo","column":"tournament_id","key":"id","label":"name","pivot_table":"data_rows","pivot":"0","taggable":"0"}',
+                'order' => 2,
             ),
         ));
         

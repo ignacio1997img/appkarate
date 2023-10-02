@@ -6,8 +6,8 @@
                     <th style="text-align: center; width: 5%">Id</th>
                     <th style="text-align: center; width: 20%">Tipo & Categoría</th>
                     <th style="text-align: center; width: 15%">Dojo</th>
-                    <th style="text-align: center; width: 5%">CI</th>
                     <th style="text-align: center; width: 30%">Nombres</th>
+                    <th style="text-align: center; width: 5%">Género</th>
                     <th style="text-align: center; width: 5%">Edad</th>
                     <th style="text-align: center; width: 5%">Peso</th>
                     <th style="text-align: right; width: 15%">Acciones</th>
@@ -22,12 +22,14 @@
                     </td>
                     <td>
                         {{ $item->dojo->name }}
-                    </td>
+                    </td>                    
                     <td>
-                        {{ $item->ci }}
-                    </td>
-                    <td>
+                        
+                        <small>CI: </small>{{ $item->ci }} <br>
                         {{ $item->first_name }} {{ $item->last_name }}
+                    </td>
+                    <td>
+                        {{ $item->gender }}
                     </td>
                     <td>
                         {{ $item->age }}
@@ -39,7 +41,7 @@
                         <a data-target="#modal-edit-customer" data-toggle="modal" title="Editar" class="btn btn-sm btn-primary edit" data-item="{{$item}}">
                             <i class="voyager-edit"></i> <span class="hidden-xs hidden-sm">Editar</span>
                         </a>
-                        <button title="Borrar" class="btn btn-sm btn-danger delete" onclick="destroyItem('{{ route('tournaments-type.destroy', ['type' => $item->id]) }}')" data-toggle="modal" data-target="#delete-modal">
+                        <button title="Borrar" class="btn btn-sm btn-danger delete" onclick="destroyItem('{{ route('tournaments-competitor.destroy', ['competitor' => $item->id]) }}')" data-toggle="modal" data-target="#delete-modal">
                             <i class="voyager-trash"></i> <span class="hidden-xs hidden-sm">Borrar</span>
                         </button>
                     </td>

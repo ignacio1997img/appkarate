@@ -4,8 +4,9 @@
             <thead>
                 <tr>
                     <th style="text-align: center; width: 5%">Id</th>
-                    <th style="text-align: center; width: 35%">Tipos de Torneos</th>
-                    <th style="text-align: center; width: 30%">Observacion/Detalle</th>
+                    <th style="text-align: center; width: 25%">Torneos</th>
+                    <th style="text-align: center; width: 25%">Tipos de Torneos</th>
+                    <th style="text-align: center; width: 25%">Categoría</th>
                     <th style="text-align: center; width: 10%">Estado</th>
                     <th style="text-align: right; width: 10%">Acciones</th>
                 </tr>
@@ -14,6 +15,9 @@
                 @forelse ($data as $item)
                 <tr>
                     <td>{{ $item->id }}</td>
+                    <td>
+                        {{ $item->tournament->name }}
+                    </td>
                     <td>
                         {{ $item->type->name }}
                     </td>
@@ -27,7 +31,7 @@
                             <i class="fa-solid fa-people-roof"></i> <span class="hidden-xs hidden-sm">Competidores</span>
                         </a>
                         {{-- @if (auth()->user()->hasPermission('delete_tournaments')) --}}
-                            <button title="Borrar" class="btn btn-sm btn-danger delete" onclick="destroyItem('{{ route('tournaments-type.destroy', ['type' => $item->id]) }}')" data-toggle="modal" data-target="#delete-modal">
+                            <button title="Borrar" class="btn btn-sm btn-danger delete" onclick="destroyItem('{{ route('type.destroy', ['type' => $item->id]) }}')" data-toggle="modal" data-target="#delete-modal">
                                 <i class="voyager-trash"></i> <span class="hidden-xs hidden-sm">Borrar</span>
                             </button>
                         {{-- @endif --}}

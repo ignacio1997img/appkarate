@@ -18,6 +18,7 @@ class CreatePeopleTable extends Migration
             $table->foreignId('dojo_id')->nullable()->constrained('dojos');
             $table->foreignId('type_id')->nullable()->constrained('types');
             $table->string('ci')->nullable();
+            $table->string('gender')->nullable();
             $table->string('image',600)->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
