@@ -43,6 +43,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('tournaments/{tournament}/type/{type}/competitor', [TournamentController::class, 'indexCompetitor'])->name('tournaments-type.competitor');
     Route::get('tournaments/type/competitor/ajax/list/{type}/{search?}', [TournamentController::class, 'listCompetitor']);
     Route::post('tournaments/type/competitor/store', [TournamentController::class, 'storeCompetitor']);
+    Route::post('tournaments/type/competitor/update', [TournamentController::class, 'updateCompetitor']);
     Route::delete('tournaments/type/competitor/{competitor?}/destroy', [TournamentController::class, 'destroyType'])->name('tournaments-type.destroy'); 
 
 

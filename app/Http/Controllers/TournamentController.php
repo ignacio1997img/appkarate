@@ -137,12 +137,12 @@ class TournamentController extends Controller
         DB::beginTransaction();
         try {
 
-            $ok = Type::where('tournament_id', $request->tournament_id)->where('type_id', $request->type_id)->where('deleted_at', null)->first();
+            // $ok = Type::where('tournament_id', $request->tournament_id)->where('type_id', $request->type_id)->where('deleted_at', null)->first();
 
-            if($ok)
-            {
-                return redirect()->route('tournaments.type', ['tournament' => $request->tournament_id])->with(['message' => 'El tipo ya se encuentra registrado..', 'alert-type' => 'error']);
-            }
+            // if($ok)
+            // {
+            //     return redirect()->route('tournaments.type', ['tournament' => $request->tournament_id])->with(['message' => 'El tipo ya se encuentra registrado..', 'alert-type' => 'error']);
+            // }
             
             // return $referee;
             $data = Type::create($request->all());
@@ -245,6 +245,30 @@ class TournamentController extends Controller
 
             DB::commit();
             return redirect()->route('tournaments-type.competitor', ['tournament' => $request->tournament_id, 'type'=>$request->type_id])->with(['message' => 'Eliminado exitosamente.', 'alert-type' => 'success']);
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->route('tournaments-type.competitor', ['tournament' => $request->tournament_id, 'type'=>$request->type_id])->with(['message' => 'Ocurrió un error.', 'alert-type' => 'error']);
+
+        }
+    }
+
+    public function updateCompetitor(Request $request)
+    {
+        return $request;
+        DB::beginTransaction();
+        try {            
+
+            $people = People::where('deleted_at', null)->where('id', $request->id)->first();
+
+            $people->update([
+                'dojo_id'=>$request->dojo_id,
+                ''
+            ])
+            $data = People::create($request->all());
+
+            DB::commit();
+            return redirect()->route('tournaments-type.competitor', ['tournament' => $request->tournament_id, 'type'=>$request->type_id])->with(['message' => 'Registrado exitosamente.', 'alert-type' => 'success']);
 
         } catch (\Throwable $th) {
             DB::rollBack();

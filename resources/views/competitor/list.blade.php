@@ -7,10 +7,10 @@
                     <th style="text-align: center; width: 20%">Tipo & Categoría</th>
                     <th style="text-align: center; width: 15%">Dojo</th>
                     <th style="text-align: center; width: 5%">CI</th>
-                    <th style="text-align: center; width: 35%">Nombres</th>
+                    <th style="text-align: center; width: 30%">Nombres</th>
                     <th style="text-align: center; width: 5%">Edad</th>
                     <th style="text-align: center; width: 5%">Peso</th>
-                    <th style="text-align: right; width: 10%">Acciones</th>
+                    <th style="text-align: right; width: 15%">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,6 +38,9 @@
                         {{ $item->weight }}
                     </td>
                     <td class="no-sort no-click bread-actions text-right">
+                        <a data-target="#modal-edit-customer" data-toggle="modal" title="Editar" class="btn btn-sm btn-primary edit" data-item="{{$item}}">
+                            <i class="voyager-edit"></i> <span class="hidden-xs hidden-sm">Editar</span>
+                        </a>
                         <button title="Borrar" class="btn btn-sm btn-danger delete" onclick="destroyItem('{{ route('tournaments-type.destroy', ['type' => $item->id]) }}')" data-toggle="modal" data-target="#delete-modal">
                             <i class="voyager-trash"></i> <span class="hidden-xs hidden-sm">Borrar</span>
                         </button>

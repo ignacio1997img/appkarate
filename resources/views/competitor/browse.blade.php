@@ -17,7 +17,7 @@
                             </a>
                         </div>
                         <div class="col-md-4 text-right" style="margin-top: 30px">
-                            <a href="#" title="Registrar arbitro" data-target="#modal-create-customer" data-toggle="modal" class="btn btn-success">
+                            <a href="#" title="Registrar competidor" data-target="#modal-create-customer" data-toggle="modal" class="btn btn-success">
                                 <i class="voyager-plus"></i> <span>Crear</span>
                             </a>
                         </div>
@@ -74,6 +74,71 @@
                             <div class="form-group col-md-6">
                                 <label>Dojo</label>
                                 <select name="dojo_id" id="dojo_id" class="form-control select2" required>
+                                    <option value="" disabled selected>--Seleccione una opción--</option>
+                                    @foreach ($dojo as $item)
+                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+
+                            <div class="form-group col-md-6">
+                                <label>CI</label>
+                                <input type="text" id="ci" name="ci" class="form-control" placeholder="CI" required>
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label>Nombres</label>
+                                <input type="text" name="first_name" id="first_name" class="form-control" placeholder="Nombre." required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Apellidos</label>
+                                <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Apellido paterno" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label>Edad</label>
+                                <input type="number" name="age" id="age" class="form-control" placeholder="15" min="1" step="1" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Peso</label>
+                                <input type="number" name="weight" id="weight" class="form-control" placeholder="50.00" min="1" step="0.1" required>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <input type="submit" class="btn btn-primary btn-save-customer" value="Sí, guardar">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form action="{{ url('admin/tournaments/type/competitor/update') }}" id="form-create-customer" method="POST">
+        <div class="modal fade" tabindex="-1" id="modal-edit-customer" role="dialog">
+            <div class="modal-dialog modal-primary">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"><i class="fa-solid fa-people-roof"></i> Editar Competidores</h4>
+                    </div>
+                    <div class="modal-body">
+                        @csrf
+                        <div class="row">
+
+                            <input type="hidden" name="id" id="id">
+                            <input type="hidden" name="type_id" value="{{$type->id}}">
+                            <input type="hidden" name="tournament_id" value="{{$type->tournament_id}}">
+                            <div class="form-group col-md-6">
+                                <label>Dojo</label>
+                                <select name="dojo_id" id="dojos_id" class="form-control select2" required>
                                     <option value="" disabled selected>--Seleccione una opción--</option>
                                     @foreach ($dojo as $item)
                                         <option value="{{$item->id}}">{{$item->name}}</option>
@@ -192,6 +257,22 @@
             });
         }
 
+
+        $('#modal-edit-customer').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget)
+                var item = button.data('item')
+                // alert(item.ci)
+
+                var modal = $(this)
+                modal.find('.modal-body #id').val(item.id)
+                modal.find('.modal-body #dojos_id').val(item.dojo_id).trigger('change')
+                
+                modal.find('.modal-body #ci').val(item.ci)
+                modal.find('.modal-body #first_name').val(item.first_name)
+                modal.find('.modal-body #last_name').val(item.last_name)
+                modal.find('.modal-body #age').val(item.age)
+                modal.find('.modal-body #weight').val(item.weight)                 
+            });
 
 
         // ############################################################
