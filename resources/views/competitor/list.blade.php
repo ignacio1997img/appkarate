@@ -18,9 +18,7 @@
                 <tr>
                     <td>{{ $item->id }}</td>
                     <td>
-                        <small>TIPO: </small>{{ $item->type->type->name }}
-                        <br>
-                        <small>CATEGORIA: </small>{{ $item->type->description }}
+                        {{ $item->type->type->name }} - {{ $item->type->description }}
                     </td>
                     <td>
                         {{ $item->dojo->name }}
