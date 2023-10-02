@@ -259,22 +259,6 @@ class MenuItemsTableSeeder extends Seeder
                 'route' => 'voyager.dojos.index',
                 'parameters' => NULL,
             ),
-            15 => 
-            array (
-                'id' => 20,
-                'menu_id' => 1,
-                'title' => 'Arbitros',
-                'url' => '',
-                'target' => '_self',
-                'icon_class' => 'voyager-alarm-clock',
-                'color' => NULL,
-                'parent_id' => 17,
-                'order' => 3,
-                'created_at' => '2023-09-27 21:51:55',
-                'updated_at' => '2023-10-01 23:07:41',
-                'route' => 'voyager.referees.index',
-                'parameters' => NULL,
-            ),
         ));
         
         
